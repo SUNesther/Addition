@@ -6,6 +6,8 @@
 #include "Addition.h"
 #include "AdditionDlg.h"
 #include "afxdialogex.h"
+#include "TipDlg.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -54,6 +56,7 @@ CAdditionDlg::CAdditionDlg(CWnd* pParent /*=NULL*/)
 	, m_editSum(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_pTipDlg = NULL;
 }
 
 void CAdditionDlg::DoDataExchange(CDataExchange* pDX)
@@ -164,12 +167,28 @@ HCURSOR CAdditionDlg::OnQueryDragIcon()
 void CAdditionDlg::OnBnClickedAddButton()
 {
 	// TODO:  在此添加控件通知处理程序代码
-	// 将各控件中的数据保存到相应的变量   
-	UpdateData(TRUE); //TRUE表示从控件传给变量，FALSE表示从变量传给控件
+	
+	//模态对话框
+	INT_PTR nRes;			// 用于保存DoModal函数的返回值   
 
-	// 将被加数和加数的加和赋值给m_editSum   
-	m_editSum = m_editSummand + m_editAddend;
+	CTipDlg tipDlg;         // 构造对话框类CTipDlg的实例   
+	nRes = tipDlg.DoModal();// 弹出对话框   
+	if (IDCANCEL == nRes)   // 判断对话框退出后返回值是否为IDCANCEL，如果是则return，否则继续向下执行   
+		return;
 
-	// 根据各变量的值更新相应的控件。和的编辑框会显示m_editSum的值   
-	UpdateData(FALSE);
+	/*
+	// 非模态对话框
+	// 如果指针变量m_pTipDlg的值为NULL，则对话框还未创建，需要动态创建   
+	if (m_pTipDlg == NULL)
+	{
+		// 创建非模态对话框实例   
+		m_pTipDlg = new CTipDlg();
+		m_pTipDlg->Create(IDD_TIP_DIALOG, this);
+	}
+	m_pTipDlg->ShowWindow(SW_SHOW);	// 显示非模态对话框
+	*/
+	   
+	UpdateData(TRUE);	// 将各控件中的数据保存到相应的变量，TRUE表示从控件传给变量，FALSE表示从变量传给控件	   
+	m_editSum = m_editSummand + m_editAddend;	// 将被加数和加数的加和赋值给m_editSum
+	UpdateData(FALSE);	// 根据各变量的值更新相应的控件。和的编辑框会显示m_editSum的值  
 }

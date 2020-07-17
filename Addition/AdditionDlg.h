@@ -1,6 +1,7 @@
 
 // AdditionDlg.h : м╥нд╪Ч
 //
+#include "TipDlg.h"
 
 #pragma once
 
@@ -34,4 +35,6 @@ public:
 	double m_editAddend;
 	double m_editSum;
 	afx_msg void OnBnClickedAddButton();
+private:
+	CTipDlg  *m_pTipDlg;
 };

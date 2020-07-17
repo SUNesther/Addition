@@ -1,4 +1,3 @@
-
 // Addition.cpp : 定义应用程序的类行为。
 //
 
@@ -70,15 +69,15 @@ BOOL CAdditionApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
-	CAdditionDlg dlg;
-	m_pMainWnd = &dlg;
-	INT_PTR nResponse = dlg.DoModal();
-	if (nResponse == IDOK)
+	CAdditionDlg dlg;	// 定义对话框类CAdditionDlg的对象dlg
+	m_pMainWnd = &dlg;	// 将dlg设为主窗口
+	INT_PTR nResponse = dlg.DoModal();	// 弹出对话框dlg，并将DoModal函数的返回值（退出时点击按钮的ID）赋值给nResponse
+	if (nResponse == IDOK)	 // 判断返回值是否为OK按钮
 	{
 		// TODO:  在此放置处理何时用
 		//  “确定”来关闭对话框的代码
 	}
-	else if (nResponse == IDCANCEL)
+	else if (nResponse == IDCANCEL)	// 判断返回值是否为Cancel按钮
 	{
 		// TODO:  在此放置处理何时用
 		//  “取消”来关闭对话框的代码
